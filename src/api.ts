@@ -1,6 +1,8 @@
-export function generatePosition() {
+export function generatePositionSheet() {
     const positionMap = StockUtil.getPositionMap()
-    for (const [key, value] of Object.entries(positionMap)) {
-        Logger.log(`\t${key}: ${value}`)
+    for (const stockPosition of positionMap.values()) {
+        for (const [key, value] of Object.entries(stockPosition)) {
+            Logger.log(`${key}: ${value}`)
+        }
     }
 }
