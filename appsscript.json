@@ -1,6 +1,14 @@
 {
   "timeZone": "America/Sao_Paulo",
   "dependencies": {
+    "libraries": [
+      {
+        "userSymbol": "ShitDb",
+        "version": "1",
+        "libraryId": "1Fp5vpWZEe2qDLeC0v5qWlOIB04EK9yWOgxpPHrHgz1JzzeTSpckrzHxX",
+        "developmentMode": false
+      }
+    ]
   },
   "exceptionLogging": "STACKDRIVER",
   "runtimeVersion": "V8"

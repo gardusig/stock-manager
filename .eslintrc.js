@@ -61,6 +61,14 @@ module.exports = {
     'no-mixed-spaces-and-tabs': 'error',
     'no-underscore-dangle': 'error',
   },
+  overrides: [
+    {
+      files: ['**/*.ts'],
+      rules: {
+        '@typescript-eslint/no-namespace': 'off',
+      },
+    },
+  ],
   ignorePatterns: [
     "node_modules",
     "dist",
