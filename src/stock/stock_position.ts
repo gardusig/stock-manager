@@ -1,10 +1,3 @@
-enum PositionTableHeader {
-    ticker = 'ticker',
-    avgPrice = 'avgPrice',
-    position = 'position',
-    spent = 'spent'
-}
-
 namespace StockPosition {
     export class StockPosition {
         ticker: string
@@ -32,23 +25,5 @@ namespace StockPosition {
         sell(quantity: number) {
             this.position -= quantity
         }
-
-        buildSheetObject() {
-            return {
-                [PositionTableHeader.ticker]: this.ticker,
-                [PositionTableHeader.avgPrice]: this.getAveragePurchasePrice(),
-                [PositionTableHeader.position]: this.position,
-                [PositionTableHeader.spent]: this.totalPurchasePrice,
-            }
-        }
-    }
-
-    export function getHeader() {
-        return [
-            PositionTableHeader.ticker,
-            PositionTableHeader.avgPrice,
-            PositionTableHeader.position,
-            PositionTableHeader.spent,
-        ]
     }
 }
