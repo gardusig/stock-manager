@@ -4,13 +4,13 @@ namespace StockUtil {
     }
 
     export function getStockTransactionList() {
-        const transactionSheet = ShitDb.createSheetToObjectMapper('transaction')
+        const transactionSheet = new ShitDb.SheetToObjectMapper.SheetToObjectMapper('transaction')
         const stockTransactionList = transactionSheet.getAllObjects()
         return stockTransactionList
     }
 
     export function createSheet<T extends StockUtil.SheetValue>(sheetName: string, header: string[], values: IterableIterator<T> | T[]) {
-        const sheet = ShitDb.createObjectToSheetMapper(sheetName, header)
+        const sheet = new ShitDb.ObjectToSheetMapper.ObjectToSheetMapper(sheetName, header)
         const serializedObjects = []
         for (const value of values) {
             const serializedObject = value.buildSheetObject()
@@ -21,5 +21,7 @@ namespace StockUtil {
             }
         }
         sheet.appendObjects(serializedObjects)
+        sheet.trimRows()
+        sheet.trimColumns()
     }
 }
