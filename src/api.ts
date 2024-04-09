@@ -1,4 +1,5 @@
-export function generatePositionSheet() {
+export function main() {
     const stockWallet = new StockWallet.StockWallet()
-    stockWallet.createSheet()
+    stockWallet.createPositionSheet()
+    stockWallet.createTradeSheet()
 }
