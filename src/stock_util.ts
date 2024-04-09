@@ -8,13 +8,14 @@ namespace StockUtil {
         return positionMap
     }
 
-    export function savePositionMap(header: string[], positionMap: Map<string, StockPosition.StockPosition>): void {
-        const positionSheet = ShitDb.createObjectToSheetMapper('generatedPosition', header)
-        const positionObjects = []
+    export function savePositionMap(positionMap: Map<string, StockPosition.StockPosition>): void {
+        const positionSheet = ShitDb.createObjectToSheetMapper('generatedPosition', StockPosition.getHeader())
+        const serializedObjects = []
         for (const positionObject of positionMap.values()) {
-            positionObjects.push(positionObject)
+            const serializedObject = positionObject.buildSheetObject()
+            serializedObjects.push(serializedObject)
         }
-        positionSheet.appendObjects(positionObjects)
+        positionSheet.appendObjects(serializedObjects)
     }
 }
 

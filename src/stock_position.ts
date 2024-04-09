@@ -1,3 +1,10 @@
+enum PositionTableHeader {
+    ticker = 'ticker',
+    avgPrice = 'avgPrice',
+    position = 'position',
+    spent = 'spent'
+}
+
 namespace StockPosition {
     export class StockPosition {
         ticker: string
@@ -5,11 +12,11 @@ namespace StockPosition {
         totalPurchasePrice: number
         totalPurchaseQuantity: number
 
-        constructor(ticker: string) {
+        constructor(ticker: string, position?: number, totalPurchasePrice?: number, totalPurchaseQuantity?: number) {
             this.ticker = ticker
-            this.position = 0
-            this.totalPurchasePrice = 0.0
-            this.totalPurchaseQuantity = 0.0
+            this.position = position ?? 0
+            this.totalPurchasePrice = totalPurchasePrice ?? 0.0
+            this.totalPurchaseQuantity = totalPurchaseQuantity ?? 0.0
         }
 
         getAveragePurchasePrice() {
@@ -25,5 +32,23 @@ namespace StockPosition {
         sell(quantity: number) {
             this.position -= quantity
         }
+
+        buildSheetObject() {
+            return {
+                [PositionTableHeader.ticker]: this.ticker,
+                [PositionTableHeader.avgPrice]: this.getAveragePurchasePrice(),
+                [PositionTableHeader.position]: this.position,
+                [PositionTableHeader.spent]: this.totalPurchasePrice,
+            }
+        }
+    }
+
+    export function getHeader() {
+        return [
+            PositionTableHeader.ticker,
+            PositionTableHeader.avgPrice,
+            PositionTableHeader.position,
+            PositionTableHeader.spent,
+        ]
     }
 }
