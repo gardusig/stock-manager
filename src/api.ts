@@ -1,5 +1,6 @@
 export function main() {
-    const stockWallet = new StockWallet.StockWallet()
+    const stockWallet = new Stock.Wallet()
+    stockWallet.processTransactions()
     stockWallet.createPositionSheet()
     stockWallet.createTradeSheet()
 }

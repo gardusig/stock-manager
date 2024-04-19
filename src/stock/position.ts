@@ -1,5 +1,5 @@
-namespace StockPosition {
-    export class StockPosition implements StockUtil.SheetValue {
+namespace Stock {
+    export class Position implements Sheet.Convertible {
         ticker: string
         position: number
         totalPurchasePrice: number
@@ -12,6 +12,19 @@ namespace StockPosition {
             this.totalPurchaseQuantity = totalPurchaseQuantity ?? 0.0
         }
 
+        update(stockTransaction: Stock.Transaction): Stock.Trade | null {
+            const quantity = stockTransaction.quantity
+            const price = stockTransaction.unitPrice
+            if (stockTransaction.isBuyOperation()) {
+                this.buy(quantity, price)
+                return null
+            }
+            if (stockTransaction.isSellOperation()) {
+                return this.sell(quantity, price)
+            }
+            return null
+        }
+
         getAveragePurchasePrice(): number {
             return this.totalPurchasePrice / this.totalPurchaseQuantity
         }
@@ -22,9 +35,9 @@ namespace StockPosition {
             this.totalPurchasePrice += (quantity * price)
         }
 
-        sell(quantity: number, price: number): StockTrade.StockTrade {
+        sell(quantity: number, price: number): Stock.Trade {
             this.position -= quantity
-            return new StockTrade.StockTrade(
+            return new Stock.Trade(
                 this.ticker,
                 quantity,
                 this.getAveragePurchasePrice(),
@@ -34,24 +47,10 @@ namespace StockPosition {
 
         buildSheetObject(): Record<string, any> {
             return {
-                [PositionTableHeader.ticker]: this.ticker,
-                [PositionTableHeader.avgPrice]: this.getAveragePurchasePrice(),
-                [PositionTableHeader.position]: this.position,
+                [PositionSheet.Header.ticker]: this.ticker,
+                [PositionSheet.Header.avgPrice]: this.getAveragePurchasePrice(),
+                [PositionSheet.Header.position]: this.position,
             }
         }
     }
-
-    export function getHeader() {
-        return [
-            PositionTableHeader.ticker,
-            PositionTableHeader.avgPrice,
-            PositionTableHeader.position,
-        ]
-    }
-}
-
-enum PositionTableHeader {
-    ticker = 'ticker',
-    avgPrice = 'avgPrice',
-    position = 'qty',
 }
