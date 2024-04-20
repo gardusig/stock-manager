@@ -20,12 +20,15 @@ namespace Stock {
                 return null
             }
             if (stockTransaction.isSellOperation()) {
-                return this.sell(quantity, price)
+                return this.sell(stockTransaction.date, quantity, price)
             }
             return null
         }
 
         getAveragePurchasePrice(): number {
+            if (this.totalPurchaseQuantity === 0) {
+                return 0
+            }
             return this.totalPurchasePrice / this.totalPurchaseQuantity
         }
 
@@ -35,9 +38,10 @@ namespace Stock {
             this.totalPurchasePrice += (quantity * price)
         }
 
-        sell(quantity: number, price: number): Stock.Trade {
+        sell(date: string, quantity: number, price: number): Stock.Trade {
             this.position -= quantity
             return new Stock.Trade(
+                date,
                 this.ticker,
                 quantity,
                 this.getAveragePurchasePrice(),

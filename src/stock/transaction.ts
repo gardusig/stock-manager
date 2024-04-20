@@ -20,7 +20,7 @@ namespace Stock {
             }
             this.date = stockTransaction.date
             this.side = stockTransaction.side
-            this.ticker = getTrimmedTicker(stockTransaction.ticker)
+            this.ticker = this.getNonFractionalTicker(stockTransaction.ticker)
             this.quantity = stockTransaction.quantity
             this.unitPrice = stockTransaction.unitPrice
             this.totalValue = stockTransaction.totalValue
@@ -33,9 +33,12 @@ namespace Stock {
         isSellOperation(): boolean {
             return this.side === 'Venda'
         }
-    }
-}
 
-function getTrimmedTicker(ticker: string): string {
-    return ticker.substring(0, 5)
+        private getNonFractionalTicker(ticker: string): string {
+            if (ticker[ticker.length - 1] == 'F') {
+                return ticker.substring(0, ticker.length - 1)
+            }
+            return ticker
+        }
+    }
 }

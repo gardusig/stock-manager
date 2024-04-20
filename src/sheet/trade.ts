@@ -1,6 +1,7 @@
 namespace TradeSheet {
     export function getHeader() {
         return [
+            Header.date,
             Header.ticker,
             Header.quantity,
             Header.avgBuyPrice,
@@ -11,6 +12,7 @@ namespace TradeSheet {
     }
 
     export enum Header {
+        date = 'date',
         ticker = 'ticker',
         quantity = 'quantity',
         avgBuyPrice = 'avgBuyPrice',
