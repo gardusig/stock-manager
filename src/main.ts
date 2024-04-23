@@ -3,4 +3,5 @@ export function main() {
     stockWallet.processTransactions()
     stockWallet.createPositionSheet()
     stockWallet.createTradeSheet()
+    stockWallet.createMonthlyTradeReportSheet()
 }

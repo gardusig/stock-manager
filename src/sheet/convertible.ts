@@ -1,5 +1,5 @@
 namespace Sheet {
     export interface Convertible {
-        buildSheetObject(): Record<string, any>;
+        buildSheetObject(): Record<string, any>
     }
 }

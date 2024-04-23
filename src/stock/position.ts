@@ -12,7 +12,7 @@ namespace Stock {
             this.totalPurchaseQuantity = totalPurchaseQuantity ?? 0.0
         }
 
-        update(stockTransaction: Stock.Transaction): Stock.Trade | null {
+        update(stockTransaction: Stock.Transaction): Trade | null {
             const quantity = stockTransaction.quantity
             const price = stockTransaction.unitPrice
             if (stockTransaction.isBuyOperation()) {
@@ -51,10 +51,24 @@ namespace Stock {
 
         buildSheetObject(): Record<string, any> {
             return {
-                [PositionSheet.Header.ticker]: this.ticker,
-                [PositionSheet.Header.avgPrice]: this.getAveragePurchasePrice(),
-                [PositionSheet.Header.position]: this.position,
+                [Header.ticker]: this.ticker,
+                [Header.avgPrice]: this.getAveragePurchasePrice(),
+                [Header.position]: this.position,
             }
         }
+
+        static getHeader() {
+            return [
+                Header.ticker,
+                Header.avgPrice,
+                Header.position,
+            ]
+        }
+    }
+
+    enum Header {
+        ticker = 'ticker',
+        avgPrice = 'avgPrice',
+        position = 'qty',
     }
 }

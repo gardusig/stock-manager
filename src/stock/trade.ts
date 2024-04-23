@@ -27,14 +27,36 @@ namespace Stock {
 
         buildSheetObject(): Record<string, any> {
             return {
-                [TradeSheet.Header.date]: this.date,
-                [TradeSheet.Header.ticker]: this.ticker,
-                [TradeSheet.Header.quantity]: this.quantity,
-                [TradeSheet.Header.avgBuyPrice]: this.avgBuyPrice,
-                [TradeSheet.Header.sellPrice]: this.sellPrice,
-                [TradeSheet.Header.profit]: this.calculateTradeProfit(),
-                [TradeSheet.Header.profitPercentage]: this.calculateTradeProfitPercentage(),
+                [Header.date]: this.date,
+                [Header.ticker]: this.ticker,
+                [Header.quantity]: this.quantity,
+                [Header.avgBuyPrice]: this.avgBuyPrice,
+                [Header.sellPrice]: this.sellPrice,
+                [Header.profit]: this.calculateTradeProfit(),
+                [Header.profitPercentage]: this.calculateTradeProfitPercentage(),
             }
         }
+
+        static getHeader() {
+            return [
+                Header.date,
+                Header.ticker,
+                Header.quantity,
+                Header.avgBuyPrice,
+                Header.sellPrice,
+                Header.profit,
+                Header.profitPercentage,
+            ]
+        }
+    }
+
+    enum Header {
+        date = 'date',
+        ticker = 'ticker',
+        quantity = 'quantity',
+        avgBuyPrice = 'avgBuyPrice',
+        sellPrice = 'sellPrice',
+        profit = 'profit',
+        profitPercentage = 'profitPercentage',
     }
 }
