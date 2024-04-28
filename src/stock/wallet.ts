@@ -21,10 +21,31 @@ namespace Stock {
             }
         }
 
-        createSheets(): void {
+        generateSheets(): void {
             this.createPositionSheet()
             this.createTradeSheet()
             this.createMonthlyTradeReportSheet()
+        }
+
+        trimSheets(): void {
+            this.trimWalletSheet()
+            this.trimTradeSheet()
+            this.trimMonthlyReportSheet()
+        }
+
+        private trimWalletSheet(): void {
+            const formatter = new ShitDb.Util.Formatter('wallet')
+            formatter.trimRows()
+        }
+
+        private trimTradeSheet(): void {
+            const formatter = new ShitDb.Util.Formatter('trade')
+            formatter.trimRows()
+        }
+
+        private trimMonthlyReportSheet(): void {
+            const formatter = new ShitDb.Util.Formatter('monthlyReport')
+            formatter.trimRows()
         }
 
         private createPositionSheet(sheetName?: string, header?: string[]): void {
