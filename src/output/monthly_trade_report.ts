@@ -1,5 +1,5 @@
 namespace Sheet {
-    export class MonthlyTradeReport implements Sheet.Convertible {
+    export class MonthlyTradeReport implements Internal.Convertible {
         year: string
         month: string
         totalSold: number
