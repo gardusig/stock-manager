@@ -1,4 +1,4 @@
-namespace Stock {
+namespace Sheet {
     export class Trade implements Sheet.Convertible {
         date: string
         ticker: string

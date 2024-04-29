@@ -1,4 +1,4 @@
-namespace Stock {
+namespace Sheet {
     export class MonthlyTradeReport implements Sheet.Convertible {
         year: string
         month: string

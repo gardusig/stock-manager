@@ -1,4 +1,4 @@
-namespace Stock {
+namespace Input {
     export class Transaction {
         date: string
         side: string

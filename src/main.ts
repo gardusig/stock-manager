@@ -1,6 +1,6 @@
 export function main() {
-    const stockWallet = new Stock.Wallet()
-    stockWallet.processTransactions()
-    stockWallet.generateSheets()
-    stockWallet.trimSheets()
+    const walletManager = new Manager.Wallet()
+    walletManager.processTransactions()
+    walletManager.generateSheets()
+    walletManager.trimSheets()
 }

@@ -1,4 +1,4 @@
-namespace Stock {
+namespace Sheet {
     export class Position implements Sheet.Convertible {
         ticker: string
         position: number
@@ -38,9 +38,9 @@ namespace Stock {
             this.totalPurchasePrice += (quantity * price)
         }
 
-        sell(date: string, quantity: number, price: number): Stock.Trade {
+        sell(date: string, quantity: number, price: number): Sheet.Trade {
             this.position -= quantity
-            return new Stock.Trade(
+            return new Sheet.Trade(
                 date,
                 this.ticker,
                 quantity,
