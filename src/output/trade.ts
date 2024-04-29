@@ -1,5 +1,5 @@
 namespace Sheet {
-    export class Trade implements Sheet.Convertible {
+    export class Trade implements Internal.Convertible {
         date: string
         ticker: string
         quantity: number

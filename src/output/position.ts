@@ -1,5 +1,5 @@
 namespace Sheet {
-    export class Position implements Sheet.Convertible {
+    export class Position implements Internal.Convertible {
         ticker: string
         position: number
         totalPurchasePrice: number
@@ -12,7 +12,7 @@ namespace Sheet {
             this.totalPurchaseQuantity = totalPurchaseQuantity ?? 0.0
         }
 
-        update(stockTransaction: Stock.Transaction): Trade | null {
+        update(stockTransaction: Input.Transaction): Trade | null {
             const quantity = stockTransaction.quantity
             const price = stockTransaction.unitPrice
             if (stockTransaction.isBuyOperation()) {
