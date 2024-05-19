@@ -53,7 +53,7 @@ namespace Output.Trade {
     export function createSheet(tradeList: Output.Trade.Model[], sheetName?: string, header?: string[]): void {
         sheetName = sheetName ?? 'generatedTrade'
         header = header ?? Output.Trade.Model.getHeader()
-        Library.createSheet(sheetName, header, tradeList)
+        Util.createSheet(sheetName, header, tradeList)
     }
 
     enum Header {

@@ -1,15 +1,12 @@
-namespace Manager {
-    export class Report {
+namespace Internal {
+    export class MonthlyTradeReport {
         totalSoldPerYearPerMonth: Map<string, Map<string, number>>
 
         constructor() {
             this.totalSoldPerYearPerMonth = new Map<string, Map<string, number>>()
         }
 
-        processTrade(trade: Output.Trade | null): void {
-            if (trade === null) {
-                return
-            }
+        processTrade(trade: Output.Trade.Model): void {
             const [year, month] = this.getYearAndMonthFromStockTrade(trade)
             if (!this.totalSoldPerYearPerMonth.has(year)) {
                 this.totalSoldPerYearPerMonth.set(year, new Map<string, number>())
@@ -24,28 +21,28 @@ namespace Manager {
             totalSoldPerMonth.set(month, newValue)
         }
 
-        private generateMonthlyTradeReport(): Output.Report.MonthlyTrade[] {
-            const monthlyTradeReportList: Output.Report.MonthlyTrade[] = []
+        getMonthlyTradeReportList(): Output.Report.MonthlyTrade.Model[] {
+            const monthlyTradeReportList: Output.Report.MonthlyTrade.Model[] = []
             for (const [year, totalSoldPerMonth] of this.totalSoldPerYearPerMonth) {
                 for (const [month, totalSold] of totalSoldPerMonth) {
-                    const report = new Output.Report.MonthlyTrade(year, month, totalSold)
+                    const report = new Output.Report.MonthlyTrade.Model(year, month, totalSold)
                     monthlyTradeReportList.push(report)
                 }
             }
             return monthlyTradeReportList
         }
 
-        private getMonthFromStockTrade(stockTrade: Output.Trade): string {
+        private getMonthFromStockTrade(stockTrade: Output.Trade.Model): string {
             const dateParts = stockTrade.date.split('/')
             return dateParts[1]
         }
 
-        private getYearFromStockTrade(stockTrade: Output.Trade): string {
+        private getYearFromStockTrade(stockTrade: Output.Trade.Model): string {
             const dateParts = stockTrade.date.split('/')
             return dateParts[2]
         }
 
-        private getYearAndMonthFromStockTrade(stockTrade: Output.Trade): [string, string] {
+        private getYearAndMonthFromStockTrade(stockTrade: Output.Trade.Model): [string, string] {
             return [
                 this.getYearFromStockTrade(stockTrade),
                 this.getMonthFromStockTrade(stockTrade),

@@ -9,11 +9,11 @@ namespace Internal {
 
         constructor(
             date: string,
-            position?: number,
-            totalBuyPrice?: number,
-            totalBuyQuantity?: number,
-            totalSellPrice?: number,
-            totalSellQuantity?: number,
+            position = 0,
+            totalBuyPrice = 0.0,
+            totalBuyQuantity = 0,
+            totalSellPrice = 0.0,
+            totalSellQuantity = 0,
         ) {
             this.date = date
             this.position = position ?? 0
@@ -23,16 +23,13 @@ namespace Internal {
             this.totalSellQuantity = totalSellQuantity ?? 0
         }
 
-        ingestTransaction(stockTransaction: Input.Transaction): void {
-            const quantity = stockTransaction.quantity
-            const price = stockTransaction.unitPrice
-            if (stockTransaction.isBuyOperation()) {
+        processTransaction(transaction: Input.Transaction.Model): void {
+            const quantity = transaction.quantity
+            const price = transaction.unitPrice
+            if (transaction.isBuyOperation()) {
                 this.buy(quantity, price)
-                return
-            }
-            if (stockTransaction.isSellOperation()) {
+            } else if (transaction.isSellOperation()) {
                 this.sell(quantity, price)
-                return
             }
         }
 
@@ -57,13 +54,13 @@ namespace Internal {
         private buy(quantity: number, price: number): void {
             this.position += quantity
             this.totalBuyQuantity += quantity
-            this.totalBuyPrice += (quantity * price)
+            this.totalBuyPrice += quantity * price
         }
 
         private sell(quantity: number, price: number): void {
             this.position -= quantity
             this.totalSellQuantity += quantity
-            this.totalSellPrice += (quantity * price)
+            this.totalSellPrice += quantity * price
         }
     }
 }

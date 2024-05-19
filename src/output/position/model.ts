@@ -2,20 +2,18 @@ namespace Output.Position {
     export class Model implements Output.Model {
         ticker: string
         position: number
-        totalPurchasePrice: number
-        totalPurchaseQuantity: number
+        avgPrice: number
 
-        constructor(ticker: string, position?: number, totalPurchasePrice?: number, totalPurchaseQuantity?: number) {
+        constructor(ticker: string, position: number, avgPrice: number) {
             this.ticker = ticker
-            this.position = position ?? 0
-            this.totalPurchasePrice = totalPurchasePrice ?? 0.0
-            this.totalPurchaseQuantity = totalPurchaseQuantity ?? 0
+            this.position = position
+            this.avgPrice = avgPrice
         }
 
         buildSheetObject(): Record<string, any> {
             return {
                 [Header.ticker]: this.ticker,
-                [Header.avgPrice]: this.getAveragePurchasePrice(),
+                [Header.avgPrice]: this.avgPrice,
                 [Header.position]: this.position,
             }
         }
@@ -32,7 +30,7 @@ namespace Output.Position {
     export function createSheet(positionList: Output.Position.Model[], sheetName?: string, header?: string[]): void {
         sheetName = sheetName ?? 'generatedPosition'
         header = header ?? Output.Position.Model.getHeader()
-        Library.createSheet(sheetName, header, positionList)
+        Util.createSheet(sheetName, header, positionList)
     }
 
     enum Header {

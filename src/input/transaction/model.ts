@@ -51,10 +51,10 @@ namespace Input.Transaction {
         }
         return transactionList
     }
+}
 
-    export function readSheet(sheetName?: string): any[] {
-        sheetName = sheetName ?? 'transaction'
-        const transactionSheet = new ShitDb.Mapper.SheetToObject(sheetName)
-        return transactionSheet.getAllObjects()
-    }
+function readSheet(sheetName?: string): any[] {
+    sheetName = sheetName ?? 'transaction'
+    const transactionSheet = new ShitDb.Mapper.SheetToObject(sheetName)
+    return transactionSheet.getAllObjects()
 }

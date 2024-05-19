@@ -1,24 +1,5 @@
 export function main() {
-    const walletManager = new Manager.Wallet()
+    const walletManager = new Internal.Wallet()
     walletManager.processTransactions()
-    // walletManager.generateSheets()
-    // walletManager.trimSheets()
+    walletManager.processSheets()
 }
-
-// generateSheets(): void {
-//     this.transactionInputReader.processTransactions()
-//     this.positionManager.createPositionSheet()
-//     this.positionManager.createTradeSheet()
-//     this.reportManager.createMonthlyTradeReportSheet()
-// }
-
-// trimSheets(): void {
-//     const sheetNames = [
-//         'wallet',
-//         'trade',
-//         'monthlyReport',
-//     ]
-//     for (const sheetName of sheetNames) {
-//         Library.trimSheet(sheetName)
-//     }
-// }

@@ -30,7 +30,7 @@ namespace Output.Report.MonthlyTrade {
     export function createSheet(monthlyTradeReportList: Output.Report.MonthlyTrade.Model[], sheetName?: string, header?: string[]): void {
         sheetName = sheetName ?? 'generatedMonthlyReport'
         header = header ?? Output.Report.MonthlyTrade.Model.getHeader()
-        Library.createSheet(sheetName, header, monthlyTradeReportList)
+        Util.createSheet(sheetName, header, monthlyTradeReportList)
     }
 
     enum Header {
