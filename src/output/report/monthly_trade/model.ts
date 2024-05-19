@@ -1,5 +1,5 @@
-namespace Sheet {
-    export class MonthlyTradeReport implements Internal.Convertible {
+namespace Output.Report.MonthlyTrade {
+    export class Model implements Output.Model {
         year: string
         month: string
         totalSold: number
@@ -18,13 +18,19 @@ namespace Sheet {
             }
         }
 
-        static getHeader() {
+        static getHeader(): string[] {
             return [
                 Header.year,
                 Header.month,
                 Header.sold,
             ]
         }
+    }
+
+    export function createSheet(monthlyTradeReportList: Output.Report.MonthlyTrade.Model[], sheetName?: string, header?: string[]): void {
+        sheetName = sheetName ?? 'generatedMonthlyReport'
+        header = header ?? Output.Report.MonthlyTrade.Model.getHeader()
+        Library.createSheet(sheetName, header, monthlyTradeReportList)
     }
 
     enum Header {

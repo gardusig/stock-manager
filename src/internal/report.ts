@@ -6,7 +6,7 @@ namespace Manager {
             this.totalSoldPerYearPerMonth = new Map<string, Map<string, number>>()
         }
 
-        processTrade(trade: Sheet.Trade | null): void {
+        processTrade(trade: Output.Trade | null): void {
             if (trade === null) {
                 return
             }
@@ -24,35 +24,28 @@ namespace Manager {
             totalSoldPerMonth.set(month, newValue)
         }
 
-        createMonthlyTradeReportSheet(sheetName?: string, header?: string[]): void {
-            sheetName = sheetName ?? 'generatedMonthlyReport'
-            header = header ?? Sheet.MonthlyTradeReport.getHeader()
-            const monthlyTradeReport = this.generateMonthlyTradeReport()
-            SheetUtil.createSheet(sheetName, header, monthlyTradeReport)
-        }
-
-        private generateMonthlyTradeReport(): Sheet.MonthlyTradeReport[] {
-            const monthlyTradeReportList: Sheet.MonthlyTradeReport[] = []
+        private generateMonthlyTradeReport(): Output.Report.MonthlyTrade[] {
+            const monthlyTradeReportList: Output.Report.MonthlyTrade[] = []
             for (const [year, totalSoldPerMonth] of this.totalSoldPerYearPerMonth) {
                 for (const [month, totalSold] of totalSoldPerMonth) {
-                    const report = new Sheet.MonthlyTradeReport(year, month, totalSold)
+                    const report = new Output.Report.MonthlyTrade(year, month, totalSold)
                     monthlyTradeReportList.push(report)
                 }
             }
             return monthlyTradeReportList
         }
 
-        private getMonthFromStockTrade(stockTrade: Sheet.Trade): string {
+        private getMonthFromStockTrade(stockTrade: Output.Trade): string {
             const dateParts = stockTrade.date.split('/')
             return dateParts[1]
         }
 
-        private getYearFromStockTrade(stockTrade: Sheet.Trade): string {
+        private getYearFromStockTrade(stockTrade: Output.Trade): string {
             const dateParts = stockTrade.date.split('/')
             return dateParts[2]
         }
 
-        private getYearAndMonthFromStockTrade(stockTrade: Sheet.Trade): [string, string] {
+        private getYearAndMonthFromStockTrade(stockTrade: Output.Trade): [string, string] {
             return [
                 this.getYearFromStockTrade(stockTrade),
                 this.getMonthFromStockTrade(stockTrade),

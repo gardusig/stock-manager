@@ -1,5 +1,5 @@
-namespace Internal {
-    export interface Convertible {
+namespace Output {
+    export interface Model {
         buildSheetObject(): Record<string, any>
     }
 }

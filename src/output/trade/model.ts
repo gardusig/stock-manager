@@ -1,5 +1,5 @@
-namespace Sheet {
-    export class Trade implements Internal.Convertible {
+namespace Output.Trade {
+    export class Model implements Output.Model {
         date: string
         ticker: string
         quantity: number
@@ -14,17 +14,6 @@ namespace Sheet {
             this.sellPrice = sellPrice
         }
 
-        calculateTradeProfit(): number {
-            return (this.sellPrice - this.avgBuyPrice) * this.quantity
-        }
-
-        calculateTradeProfitPercentage(): number {
-            if (this.avgBuyPrice === 0) {
-                return 1
-            }
-            return (this.sellPrice / this.avgBuyPrice) - 1
-        }
-
         buildSheetObject(): Record<string, any> {
             return {
                 [Header.date]: this.date,
@@ -37,7 +26,7 @@ namespace Sheet {
             }
         }
 
-        static getHeader() {
+        static getHeader(): string[] {
             return [
                 Header.date,
                 Header.ticker,
@@ -48,6 +37,23 @@ namespace Sheet {
                 Header.profitPercentage,
             ]
         }
+
+        private calculateTradeProfit(): number {
+            return (this.sellPrice - this.avgBuyPrice) * this.quantity
+        }
+
+        private calculateTradeProfitPercentage(): number {
+            if (this.avgBuyPrice === 0) {
+                return 1
+            }
+            return (this.sellPrice / this.avgBuyPrice) - 1
+        }
+    }
+
+    export function createSheet(tradeList: Output.Trade.Model[], sheetName?: string, header?: string[]): void {
+        sheetName = sheetName ?? 'generatedTrade'
+        header = header ?? Output.Trade.Model.getHeader()
+        Library.createSheet(sheetName, header, tradeList)
     }
 
     enum Header {

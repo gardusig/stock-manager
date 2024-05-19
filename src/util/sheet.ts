@@ -1,12 +1,5 @@
-namespace SheetUtil {
-    export function getStockTransactionList(sheetName?: string) {
-        sheetName = sheetName ?? 'transaction'
-        const transactionSheet = new ShitDb.Mapper.SheetToObject(sheetName)
-        const stockTransactionList = transactionSheet.getAllObjects()
-        return stockTransactionList
-    }
-
-    export function createSheet<T extends Internal.Convertible>(sheetName: string, header: string[], values: IterableIterator<T> | T[]) {
+namespace Util {
+    export function createSheet<T extends Output.Model>(sheetName: string, header: string[], values: IterableIterator<T> | T[]) {
         const sheet = new ShitDb.Mapper.ObjectToSheet(sheetName, header)
         const serializedObjects = []
         for (const value of values) {

@@ -1,5 +1,5 @@
-namespace Input {
-    export class Transaction {
+namespace Input.Transaction {
+    export class Model {
         date: string
         side: string
         ticker: string
@@ -35,10 +35,26 @@ namespace Input {
         }
 
         private getNonFractionalTicker(ticker: string): string {
-            if (ticker[ticker.length - 1] == 'F') {
+            if (ticker[ticker.length - 1] === 'F') {
                 return ticker.substring(0, ticker.length - 1)
             }
             return ticker
         }
+    }
+
+    export function getTransactionList(): Input.Transaction.Model[] {
+        const transactionList: Input.Transaction.Model[] = []
+        const rawTransactionList = readSheet()
+        for (let i = rawTransactionList.length - 1; i >= 0; i--) {
+            const transaction = new Input.Transaction.Model(rawTransactionList[i])
+            transactionList.push(transaction)
+        }
+        return transactionList
+    }
+
+    export function readSheet(sheetName?: string): any[] {
+        sheetName = sheetName ?? 'transaction'
+        const transactionSheet = new ShitDb.Mapper.SheetToObject(sheetName)
+        return transactionSheet.getAllObjects()
     }
 }
