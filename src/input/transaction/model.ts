@@ -21,14 +21,17 @@ namespace Input.Transaction {
       this.date = stockTransaction.date;
       this.side = stockTransaction.side;
       this.ticker = this.getNonFractionalTicker(stockTransaction.ticker);
-      this.quantity = parseInt(stockTransaction.quantity);
+
       Logger.log(`stockTransaction.quantity: ${stockTransaction.quantity}`);
+      this.quantity = parseInt(stockTransaction.quantity);
       Logger.log(`this.quantity: ${this.quantity}`);
-      this.unitPrice = parseFloat(stockTransaction.unitPrice.substring(3));
+
       Logger.log(`stockTransaction.unitPrice: ${stockTransaction.unitPrice}`);
+      this.unitPrice = parseFloat(stockTransaction.unitPrice.substring(3));
       Logger.log(`this.unitPrice: ${this.unitPrice}`);
-      this.totalValue = parseFloat(stockTransaction.totalValue);
+
       Logger.log(`stockTransaction.totalValue: ${stockTransaction.totalValue}`);
+      this.totalValue = parseFloat(stockTransaction.totalValue);
       Logger.log(`this.totalValue: ${this.totalValue}`);
     }
 
