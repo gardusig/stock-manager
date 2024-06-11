@@ -7,7 +7,7 @@ namespace Input.Transaction {
     institution: string;
     ticker: string;
     quantity: string;
-    unitPrice: string;
-    totalValue: string;
+    unitPrice: string | number;
+    totalValue: string | number;
   }
 }

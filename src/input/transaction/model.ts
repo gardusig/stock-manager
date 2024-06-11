@@ -21,18 +21,9 @@ namespace Input.Transaction {
       this.date = stockTransaction.date;
       this.side = stockTransaction.side;
       this.ticker = this.getNonFractionalTicker(stockTransaction.ticker);
-
-      Logger.log(`stockTransaction.quantity: ${stockTransaction.quantity}`);
       this.quantity = parseInt(stockTransaction.quantity);
-      Logger.log(`this.quantity: ${this.quantity}`);
-
-      Logger.log(`stockTransaction.unitPrice: ${stockTransaction.unitPrice}`);
-      this.unitPrice = parseFloat(stockTransaction.unitPrice.substring(3));
-      Logger.log(`this.unitPrice: ${this.unitPrice}`);
-
-      Logger.log(`stockTransaction.totalValue: ${stockTransaction.totalValue}`);
-      this.totalValue = parseFloat(stockTransaction.totalValue);
-      Logger.log(`this.totalValue: ${this.totalValue}`);
+      this.unitPrice = parseFloatOrString(stockTransaction.unitPrice);
+      this.totalValue = parseFloatOrString(stockTransaction.totalValue);
     }
 
     isBuyOperation(): boolean {
@@ -66,4 +57,11 @@ function readSheet(sheetName?: string): any[] {
   sheetName = sheetName ?? "transaction";
   const transactionSheet = new ShitDb.Mapper.SheetToObject(sheetName);
   return transactionSheet.getAllObjects();
+}
+
+function parseFloatOrString(value: string | number): number {
+  if (typeof value === "string") {
+    return parseFloat(value.substring(3));
+  }
+  return value;
 }

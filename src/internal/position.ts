@@ -9,6 +9,9 @@ namespace Internal {
     }
 
     processTransaction(transaction: Input.Transaction.Model): void {
+      Logger.log(
+        `Processing transaction: ${JSON.stringify(transaction, null, 2)}`,
+      );
       this.resetDayIfNeeded(transaction.date);
       if (this.currentDayPosition) {
         this.currentDayPosition.processTransaction(transaction);

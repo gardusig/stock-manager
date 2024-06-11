@@ -55,6 +55,9 @@ namespace Internal {
         currentDayPosition.totalBuyQuantity,
         currentDayPosition.totalSellQuantity,
       );
+      Logger.log(
+        `PreviousDayPosition: ticker: ${this.ticker}, date: ${currentDayPosition.date}, quantity: ${quantity}`,
+      );
       if (quantity <= 0) {
         Logger.log(
           `PreviousDayPosition: no trade processed for CurrentDayPosition, ticker: ${this.ticker}, date: ${currentDayPosition.date}`,
@@ -95,7 +98,7 @@ namespace Internal {
       );
       this.tradeList.push(trade);
       Logger.log(
-        `PreviousDayPosition: sold, ticker: ${this.ticker}, position: ${this.position}`,
+        `PreviousDayPosition: sold, ticker: ${this.ticker}, quantity: ${quantity}, position: ${this.position}`,
       );
     }
 
