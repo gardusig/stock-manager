@@ -1,77 +1,51 @@
 module.exports = {
-  parser: '@typescript-eslint/parser',
+  parser: "@typescript-eslint/parser",
   parserOptions: {
-    project: 'tsconfig.json',
-    sourceType: 'module',
+    project: "tsconfig.json",
+    sourceType: "module",
   },
   plugins: [
-    "@typescript-eslint",
-    'prettier',
+    "@typescript-eslint/eslint-plugin",
+    "unused-imports",
+    "import-helpers",
+    "prettier",
   ],
   extends: [
-    'eslint:recommended',
-    'plugin:@typescript-eslint/eslint-recommended',
-    'plugin:@typescript-eslint/recommended',
-    'prettier',
+    "plugin:@typescript-eslint/recommended",
+    "plugin:prettier/recommended",
   ],
   root: true,
   env: {
-    'node': true,
-    'jest': true,
+    node: true,
+    jest: true,
   },
+  ignorePatterns: [".eslintrc.js"],
   rules: {
-    'quotes': [
-      'error',
-      'single',
-    ],
-    'semi': [
-      'error',
-      'never',
-    ],
-    'no-console': 'warn',
-    'comma-dangle': [
-      'error',
-      'always-multiline',
-    ],
-    '@typescript-eslint/no-explicit-any': 'off',
-    '@typescript-eslint/explicit-module-boundary-types': 'off',
-    '@typescript-eslint/no-non-null-assertion': 'off',
-    '@typescript-eslint/ban-types': 'off',
-    'camelcase': [
-      'error',
+    "@typescript-eslint/interface-name-prefix": "off",
+    "@typescript-eslint/explicit-function-return-type": "off",
+    "@typescript-eslint/explicit-module-boundary-types": "off",
+    "@typescript-eslint/no-explicit-any": "off",
+    "@typescript-eslint/no-unused-vars": "off",
+    "@typescript-eslint/no-namespace": "off",
+    "unused-imports/no-unused-imports": "error",
+    "unused-imports/no-unused-vars": [
+      "warn",
       {
-        'properties': 'never',
+        vars: "all",
+        varsIgnorePattern: "^_",
+        args: "after-used",
+        argsIgnorePattern: "^_",
       },
     ],
-    'no-multiple-empty-lines': [
-      'error',
+    "import-helpers/order-imports": [
+      "warn",
       {
-        'max': 1,
+        newlinesBetween: "always",
+        groups: ["module", ["parent", "sibling", "index"]],
+        alphabetize: { order: "asc", ignoreCase: true },
       },
     ],
-    'object-curly-spacing': [
-      'error',
-      'always',
-    ],
-    'no-trailing-spaces': 'error',
-    'eol-last': [
-      'error',
-      'always',
-    ],
-    'no-mixed-spaces-and-tabs': 'error',
-    'no-underscore-dangle': 'error',
+    "prettier/prettier": "error",
+    "comma-dangle": ["error", "always-multiline"],
   },
-  overrides: [
-    {
-      files: ['**/*.ts'],
-      rules: {
-        '@typescript-eslint/no-namespace': 'off',
-      },
-    },
-  ],
-  ignorePatterns: [
-    "node_modules",
-    "dist",
-    ".eslintrc.js",
-  ]
 };
