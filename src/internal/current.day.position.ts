@@ -31,7 +31,8 @@ namespace Internal {
       const price = transaction.unitPrice;
       if (transaction.isBuyOperation()) {
         this.buy(quantity, price);
-      } else if (transaction.isSellOperation()) {
+      }
+      if (transaction.isSellOperation()) {
         this.sell(quantity, price);
       }
     }
@@ -55,6 +56,12 @@ namespace Internal {
     }
 
     private buy(quantity: number, price: number): void {
+      if (quantity <= 0 || price <= 0) {
+        Logger.log(
+          `CurrentDayPosition: invalid buy transaction for ticker: ${this.ticker}, quantity: ${quantity}, price: ${price}`,
+        );
+        return;
+      }
       this.position += quantity;
       this.totalBuyQuantity += quantity;
       this.totalBuyPrice += quantity * price;
@@ -64,6 +71,12 @@ namespace Internal {
     }
 
     private sell(quantity: number, price: number): void {
+      if (quantity <= 0 || price <= 0) {
+        Logger.log(
+          `CurrentDayPosition: invalid sell transaction for ticker: ${this.ticker}, quantity: ${quantity}, price: ${price}`,
+        );
+        return;
+      }
       this.position -= quantity;
       this.totalSellQuantity += quantity;
       this.totalSellPrice += quantity * price;

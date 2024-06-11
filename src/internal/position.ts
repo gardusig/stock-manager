@@ -10,7 +10,7 @@ namespace Internal {
 
     processTransaction(transaction: Input.Transaction.Model): void {
       Logger.log(
-        `Processing transaction: ${JSON.stringify(transaction, null, 2)}`,
+        `Position: processing transaction: ${JSON.stringify(transaction, null, 2)}`,
       );
       this.resetDayIfNeeded(transaction.date);
       if (this.currentDayPosition) {
@@ -39,7 +39,7 @@ namespace Internal {
           date,
         );
         Logger.log(
-          `created new CurrentDayPosition, ticker: ${this.previousDayPosition.ticker}, date: ${date}`,
+          `Position: created new CurrentDayPosition, ticker: ${this.previousDayPosition.ticker}, date: ${date}`,
         );
         return;
       }
@@ -52,7 +52,7 @@ namespace Internal {
           date,
         );
         Logger.log(
-          `created new CurrentDayPosition, ticker: ${this.previousDayPosition.ticker}, date: ${date}`,
+          `Position: created new CurrentDayPosition, ticker: ${this.previousDayPosition.ticker}, date: ${date}`,
         );
       }
     }
