@@ -10,7 +10,7 @@ namespace Internal {
       ticker: string,
       position = 0,
       totalPurchasePrice = 0.0,
-      totalPurchaseQuantity = 0
+      totalPurchaseQuantity = 0,
     ) {
       this.ticker = ticker;
       this.position = position;
@@ -20,25 +20,29 @@ namespace Internal {
     }
 
     processCurrentDayPosition(
-      currentDayPosition: Internal.CurrentDayPosition
+      currentDayPosition: Internal.CurrentDayPosition,
     ): void {
       this.processCurrentDayTrade(currentDayPosition);
       if (currentDayPosition.position > 0) {
         this.buy(
           currentDayPosition.position,
-          currentDayPosition.getAverageBuyPrice()
+          currentDayPosition.getAverageBuyPrice(),
         );
       }
       if (currentDayPosition.position < 0) {
         this.sell(
           currentDayPosition.date,
           -currentDayPosition.position,
-          currentDayPosition.getAverageSellPrice()
+          currentDayPosition.getAverageSellPrice(),
         );
       }
       Logger.log(
-        `PreviousDayPosition: processed current day position for ticker: ${this.ticker}, date: ${currentDayPosition.date}, new position: ${this.position}`
+        `PreviousDayPosition: processed current day position for ticker: ${this.ticker}, date: ${currentDayPosition.date}, new position: ${this.position}`,
       );
+      if (this.position <= 0) {
+        this.totalPurchasePrice = 0;
+        this.totalPurchaseQuantity = 0;
+      }
     }
 
     getPositionIfValid(): Output.Position.Model | null {
@@ -48,21 +52,18 @@ namespace Internal {
       return new Output.Position.Model(
         this.ticker,
         this.position,
-        this.getAveragePurchasePrice()
+        this.getAveragePurchasePrice(),
       );
     }
 
     private processCurrentDayTrade(
-      currentDayPosition: Internal.CurrentDayPosition
+      currentDayPosition: Internal.CurrentDayPosition,
     ): void {
       const quantity = Math.min(
         currentDayPosition.totalBuyQuantity,
-        currentDayPosition.totalSellQuantity
+        currentDayPosition.totalSellQuantity,
       );
       if (quantity <= 0) {
-        Logger.log(
-          `PreviousDayPosition: no trade processed for CurrentDayPosition, ticker: ${this.ticker}, date: ${currentDayPosition.date}`
-        );
         return;
       }
       this.tradeList.push(
@@ -76,14 +77,14 @@ namespace Internal {
         ),
       );
       Logger.log(
-        `PreviousDayPosition: added trade, ticker: ${this.ticker}, date: ${currentDayPosition.date}, quantity: ${quantity}, tradeListSize: ${this.tradeList.length}`
+        `PreviousDayPosition: added trade, ticker: ${this.ticker}, date: ${currentDayPosition.date}, quantity: ${quantity}, tradeListSize: ${this.tradeList.length}`,
       );
     }
 
     private buy(quantity: number, price: number): void {
       if (quantity <= 0 || price <= 0) {
         Logger.log(
-          `PreviousDayPosition: Invalid buy transaction for ticker: ${this.ticker}, quantity: ${quantity}, price: ${price}`
+          `PreviousDayPosition: Invalid buy transaction for ticker: ${this.ticker}, quantity: ${quantity}, price: ${price}`,
         );
         return;
       }
@@ -91,14 +92,14 @@ namespace Internal {
       this.totalPurchaseQuantity += quantity;
       this.totalPurchasePrice += quantity * price;
       Logger.log(
-        `PreviousDayPosition: bought, ticker: ${this.ticker}, position: ${this.position}, totalPurchaseQuantity: ${this.totalPurchaseQuantity}, totalPurchasePrice: ${this.totalPurchasePrice}`
+        `PreviousDayPosition: bought, ticker: ${this.ticker}, position: ${this.position}, totalPurchaseQuantity: ${this.totalPurchaseQuantity}, totalPurchasePrice: ${this.totalPurchasePrice}`,
       );
     }
 
     private sell(date: string, quantity: number, price: number): void {
       if (quantity <= 0 || price <= 0) {
         Logger.log(
-          `PreviousDayPosition: Invalid sell transaction for ticker: ${this.ticker}, quantity: ${quantity}, price: ${price}`
+          `PreviousDayPosition: Invalid sell transaction for ticker: ${this.ticker}, quantity: ${quantity}, price: ${price}`,
         );
         return;
       }
@@ -113,7 +114,7 @@ namespace Internal {
       );
       this.tradeList.push(trade);
       Logger.log(
-        `PreviousDayPosition: sold, ticker: ${this.ticker}, quantity: ${quantity}, position: ${this.position}`
+        `PreviousDayPosition: sold, ticker: ${this.ticker}, quantity: ${quantity}, position: ${this.position}`,
       );
     }
 
