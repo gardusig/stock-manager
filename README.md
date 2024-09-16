@@ -1,10 +1,10 @@
 # Stock Manager
 
-Google Apps Script for managing stocks at Google Sheets
+Google Apps Script for managing stocks at Google Sheets.
 
-## Push Code
+## System design
 
-To push the code to your Google Apps Script project, run `clasp login` to authenticate with your Google account, then execute `clasp push`.
+![system-design](./system-design.png)
 
 ## Summary
 
@@ -56,10 +56,3 @@ The Stock Manager application reads data from the `transaction` sheet, which con
     | 2023 | 04    | R$ 9,170.60  | R$ 0.00   | R$ 9,170.60  |
     | 2023 | 05    | R$ 11,187.25 | R$ 0.00   | R$ 11,187.25 |
     | 2023 | 06    | R$ 438.20    | R$ 0.00   | R$ 438.20    |
-
-
-## Usage
-
-### Main Function
-
-The main function of the Stock Manager application is `main()`, which is responsible for initiating the stock management process. It can be manually triggered or set to run on a schedule.
